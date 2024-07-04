@@ -105,7 +105,7 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 1.5
+    m_Value: 1.8
   aperture:
     m_OverrideState: 1
     m_Value: 7.1
@@ -222,14 +222,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   shadows:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.80443597, y: 0.8756302, z: 1, w: -0.29732615}
   midtones:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.85739607, y: 0.9004675, z: 1, w: -0.13689826}
   highlights:
-    m_OverrideState: 0
-    m_Value: {x: 1, y: 1, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.97485095, z: 0.8598136, w: 0.171123}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
