@@ -15,15 +15,20 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public SpriteRenderer sr;
     public GameObject lightPlayer;
-    public GameObject holdPoint;
+    public Transform holdPoint;
     public Animator animator;
 
     public bool isGrounded;
     public PickableItem pickableItem;
 
+    public float acceleration = 10f;
+    public float deceleration = 10f;
+    private float currentSpeed;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        currentSpeed = 0f;
     }
 
     void Update()
@@ -60,25 +65,13 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
-        Vector3 moveDir = new Vector3(x, 0, z);
+        Vector3 moveDir = new Vector3(x, 0, z).normalized;
 
-        if (pickableItem.heldItem != null)
-        {
-            // Use held item's speed and jump force when holding an item
-            speed = pickableItem.heldSpeed;
-            sprintSpeed = pickableItem.heldSprintSpeed;
-            jumpForce = pickableItem.heldJumpForce;
-        }
-        else
-        {
-            speed = resetSpeed;
-            sprintSpeed = resetSprintSpeed;
-            jumpForce = resetJumpForce;
-        }
-
+        float targetSpeed = (x != 0 || z != 0) ? (isSprinting ? sprintSpeed : speed) : 0f;
+        currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, (targetSpeed > currentSpeed ? acceleration : deceleration) * Time.deltaTime);
+        
         if (x != 0 || z != 0)
         {
-            float currentSpeed = isSprinting ? sprintSpeed : speed;
             rb.velocity = new Vector3(moveDir.x * currentSpeed, rb.velocity.y, moveDir.z * currentSpeed);
             animator.SetBool("IsWalking", true);
             animator.SetBool("IsSprinting", isSprinting);

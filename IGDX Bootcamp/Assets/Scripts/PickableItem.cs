@@ -2,38 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickableItem : MonoBehaviour
+public class PickableItem : MonoBehaviour, IInteractable
 {
     public float heldSpeed = 5f;
-    public float heldSprintSpeed = 5f;
+    public float heldSprintSpeed = 7f;
     public float heldJumpForce = 8f;
     public Transform holdPoint;  // The point where the item will be held
     public float throwForce = 10f;  // The force applied when throwing the item
 
     public GameObject heldItem;
-    private GameObject pickableItem;
+    private bool isPickedUp = false;  // Track if the item is currently picked up
+    private Transform originalParent;
     public SpriteRenderer playerSpriteRenderer;  // Reference to the player's SpriteRenderer component
 
     void Start()
     {
-        // playerSpriteRenderer = GetComponent<SpriteRenderer>();  // Get the SpriteRenderer component from the player
+        originalParent = transform.parent;
+    }
+
+    public void Interact()
+    {
+        if (heldItem == null)
+        {
+            PickupItem();
+        }
+        else
+        {
+            DropItem();
+        }
     }
 
     void Update()
     {
-        // Check for pickup or drop/throw input
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (heldItem == null && pickableItem != null)
-            {
-                PickupItem(pickableItem);
-            }
-            else if (heldItem != null)
-            {
-                DropItem();
-            }
-        }
-
         // Check for throw input
         if (Input.GetKeyDown(KeyCode.Q) && heldItem != null)
         {
@@ -41,39 +41,27 @@ public class PickableItem : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void PickupItem()
     {
-        if (other.CompareTag("Pickable"))
-        {
-            pickableItem = other.gameObject;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Pickable"))
-        {
-            pickableItem = null;
-        }
-    }
-
-    void PickupItem(GameObject item)
-    {
-        Debug.Log("Picking up item: " + item.name);
-        heldItem = item;
+        Debug.Log("Picking up item: " + gameObject.name);
+        heldItem = gameObject;
+        isPickedUp = true;
         heldItem.GetComponent<Rigidbody>().isKinematic = true;  // Disable physics while holding
         heldItem.GetComponent<Collider>().enabled = false;  // Disable the collider
         heldItem.transform.position = holdPoint.position;
         heldItem.transform.parent = holdPoint;  // Parent the item to the hold point
+        SetPlayerStats();
     }
 
     void DropItem()
     {
         Debug.Log("Dropping item: " + heldItem.name);
+        isPickedUp = false;
         heldItem.GetComponent<Rigidbody>().isKinematic = false;  // Re-enable physics
         heldItem.GetComponent<Collider>().enabled = true;  // Re-enable the collider
-        heldItem.transform.parent = null;  // Unparent the item
+        heldItem.transform.parent = originalParent;  // Reset the parent
         heldItem = null;
+        ResetPlayerStats();
     }
 
     void ThrowItem()
@@ -82,14 +70,38 @@ public class PickableItem : MonoBehaviour
         Rigidbody itemRb = heldItem.GetComponent<Rigidbody>();
         itemRb.isKinematic = false;  // Re-enable physics
         heldItem.GetComponent<Collider>().enabled = true;  // Re-enable the collider
-        itemRb.transform.parent = null;  // Unparent the item
+        itemRb.transform.parent = originalParent;  // Reset the parent
 
         // Determine throw direction based on player's facing direction
         float throwDirection = playerSpriteRenderer.flipX ? -1 : 1;  // Check if player is flipped
 
         // Apply force in the x-direction
-        itemRb.AddForce(new Vector3(throwDirection, 0, 0) * throwForce, ForceMode.VelocityChange);
+        itemRb.AddForce(new Vector3((throwDirection * 0.5f), 1f, 0) * throwForce, ForceMode.VelocityChange);
 
         heldItem = null;
+        isPickedUp = false;
+        ResetPlayerStats();
+    }
+
+    public void SetPlayerStats()
+    {
+        var playerController = holdPoint.GetComponentInParent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.speed = heldSpeed;
+            playerController.sprintSpeed = heldSprintSpeed;
+            playerController.jumpForce = heldJumpForce;
+        }
+    }
+
+    public void ResetPlayerStats()
+    {
+        var playerController = holdPoint.GetComponentInParent<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.speed = playerController.resetSpeed;
+            playerController.sprintSpeed = playerController.resetSprintSpeed;
+            playerController.jumpForce = playerController.resetJumpForce;
+        }
     }
 }
