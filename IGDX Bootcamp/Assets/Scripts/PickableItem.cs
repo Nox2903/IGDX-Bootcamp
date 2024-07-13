@@ -37,7 +37,6 @@ public class PickableItem : MonoBehaviour, IInteractable
 
     void Update()
     {
-        Debug.Log(popUp.transform.position);
         // Check for throw input
         if (Input.GetKeyDown(KeyCode.Q) && heldItem != null)
         {
@@ -47,7 +46,7 @@ public class PickableItem : MonoBehaviour, IInteractable
 
     void PickupItem()
     {
-        Debug.Log("Picking up item: " + gameObject.name);
+        //Debug.Log("Picking up item: " + gameObject.name);
         heldItem = gameObject;
         isPickedUp = true;
         popUp2.SetActive(true);

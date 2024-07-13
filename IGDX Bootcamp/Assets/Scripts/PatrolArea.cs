@@ -24,7 +24,7 @@ public class PatrolArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInArea = true;
-            Debug.Log("player in area");
+            //Debug.Log("player in area");
         }
     }
 
@@ -33,7 +33,7 @@ public class PatrolArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInArea = false;
-            Debug.Log("player not in area");
+            //Debug.Log("player not in area");
         }
     }
 }

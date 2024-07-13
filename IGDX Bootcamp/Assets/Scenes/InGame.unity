@@ -4503,7 +4503,7 @@ MonoBehaviour:
   isChasing: 0
   playerPoint: {fileID: 1181194678}
   normalSpeed: 1.5
-  chasingSpeed: 2
+  chasingSpeed: 4
 --- !u!195 &2001973154
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5252,7 +5252,7 @@ PrefabInstance:
     - target: {fileID: 6571758151319071531, guid: bd3c451e46cea1d4a95252aa0329608e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.98
+      value: 10.31
       objectReference: {fileID: 0}
     - target: {fileID: 6571758151319071531, guid: bd3c451e46cea1d4a95252aa0329608e,
         type: 3}
@@ -5262,7 +5262,7 @@ PrefabInstance:
     - target: {fileID: 6571758151319071531, guid: bd3c451e46cea1d4a95252aa0329608e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.45
+      value: 10.65
       objectReference: {fileID: 0}
     - target: {fileID: 6571758151319071531, guid: bd3c451e46cea1d4a95252aa0329608e,
         type: 3}
@@ -5298,6 +5298,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640773994053269185, guid: bd3c451e46cea1d4a95252aa0329608e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7774299467780199589, guid: bd3c451e46cea1d4a95252aa0329608e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.11
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5396010676553821452, guid: bd3c451e46cea1d4a95252aa0329608e, type: 3}
