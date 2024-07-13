@@ -4,7 +4,8 @@ using UnityEngine;
 
 interface IInteractable
 {
-    public void Interact();
+    GameObject PopUp { get; }
+    void Interact();
 }
 
 public class Interactor : MonoBehaviour
@@ -24,6 +25,7 @@ public class Interactor : MonoBehaviour
         if (other.gameObject.TryGetComponent(out IInteractable interactable))
         {
             interactableObject = interactable;
+            interactableObject.PopUp.SetActive(true); // Activate the PopUp GameObject
         }
     }
 
@@ -33,6 +35,7 @@ public class Interactor : MonoBehaviour
         {
             if (interactableObject == interactable)
             {
+                interactableObject.PopUp.SetActive(false); // Deactivate the PopUp GameObject
                 interactableObject = null;
             }
         }

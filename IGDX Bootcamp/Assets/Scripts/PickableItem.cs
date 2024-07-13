@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour, IInteractable
 {
+    public GameObject popUp;
+    public GameObject PopUp => popUp; // Implementing the PopUp property
+    public GameObject popUp2;
     public float heldSpeed = 5f;
     public float heldSprintSpeed = 7f;
     public float heldJumpForce = 8f;
@@ -34,6 +37,7 @@ public class PickableItem : MonoBehaviour, IInteractable
 
     void Update()
     {
+        Debug.Log(popUp.transform.position);
         // Check for throw input
         if (Input.GetKeyDown(KeyCode.Q) && heldItem != null)
         {
@@ -46,6 +50,8 @@ public class PickableItem : MonoBehaviour, IInteractable
         Debug.Log("Picking up item: " + gameObject.name);
         heldItem = gameObject;
         isPickedUp = true;
+        popUp2.SetActive(true);
+        ChangePopUpXPosition(0.15f); // Change the x coordinate to 0.15
         heldItem.GetComponent<Rigidbody>().isKinematic = true;  // Disable physics while holding
         heldItem.GetComponent<Collider>().enabled = false;  // Disable the collider
         heldItem.transform.position = holdPoint.position;
@@ -57,6 +63,8 @@ public class PickableItem : MonoBehaviour, IInteractable
     {
         Debug.Log("Dropping item: " + heldItem.name);
         isPickedUp = false;
+        popUp2.SetActive(false);
+        ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         heldItem.GetComponent<Rigidbody>().isKinematic = false;  // Re-enable physics
         heldItem.GetComponent<Collider>().enabled = true;  // Re-enable the collider
         heldItem.transform.parent = originalParent;  // Reset the parent
@@ -80,9 +88,17 @@ public class PickableItem : MonoBehaviour, IInteractable
 
         heldItem = null;
         isPickedUp = false;
+        popUp2.SetActive(false);
+        ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         ResetPlayerStats();
     }
 
+    void ChangePopUpXPosition(float newX)
+    {
+        Vector3 currentPosition = popUp.transform.localPosition;
+        popUp.transform.localPosition = new Vector3(newX, currentPosition.y, currentPosition.z);
+    }
+    
     public void SetPlayerStats()
     {
         var playerController = holdPoint.GetComponentInParent<PlayerController>();
