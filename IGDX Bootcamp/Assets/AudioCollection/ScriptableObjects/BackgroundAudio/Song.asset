@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2118a7cd49cfe4bb4a3e4b9ab9a07a, type: 3}
+  m_Name: Song
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: TesAudio
+  <Track>k__BackingField: {fileID: 8300000, guid: 555b13148dc49a643a7a5f96e6ff4bd4,
+    type: 3}
+  volume: 1
+  audioSourceType: 2
+  loop: 0
+  isRandomlyPlayed: 0
+  playChance: 0
+  enableFadeSettings: {fileID: 11400000, guid: 4796c19e31d9075408aa787f957b2e4d, type: 2}
+  disableFadeSettings: {fileID: 11400000, guid: 971cfd3ae680d624b9afaf7f35cd48fe,
+    type: 2}

@@ -1,0 +1,16 @@
+{
+    "name": "AudioCollectionEditor",
+    "rootNamespace": "Game",
+    "references": [
+        "GUID:1d6487930cd42fa40ad57af7c26e896e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
