@@ -202,7 +202,7 @@ Material:
     - _Raymarch_Depth_Fade: 0
     - _Raymarch_Depth_Fade_Power: 2
     - _Raymarch_Distance: 12.9
-    - _Raymarch_Distance_Bias: 0.2
+    - _Raymarch_Distance_Bias: 0.25
     - _Raymarch_Height_Falloff: 0.456
     - _Raymarch_Height_Offset: 0
     - _Raymarch_Max_Depth: 0

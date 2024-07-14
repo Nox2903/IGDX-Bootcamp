@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public float deceleration = 10f;
     private float currentSpeed;
 
+    private bool jumpEnabled = true;
+    private bool sprintEnabled = true; // New variable for sprinting control
+    private bool flipXFrozen = false;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -64,12 +68,12 @@ public class PlayerController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isSprinting = sprintEnabled && Input.GetKey(KeyCode.LeftShift); // Consider sprintEnabled here
         Vector3 moveDir = new Vector3(x, 0, z).normalized;
 
         float targetSpeed = (x != 0 || z != 0) ? (isSprinting ? sprintSpeed : speed) : 0f;
         currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, (targetSpeed > currentSpeed ? acceleration : deceleration) * Time.deltaTime);
-        
+
         if (x != 0 || z != 0)
         {
             rb.velocity = new Vector3(moveDir.x * currentSpeed, rb.velocity.y, moveDir.z * currentSpeed);
@@ -78,27 +82,41 @@ public class PlayerController : MonoBehaviour
 
             if (x < 0)
             {
-                sr.flipX = true;
-                // Change lightPlayer's x position to negative
-                Vector3 lightPlayerPos = lightPlayer.transform.localPosition;
-                lightPlayerPos.x = Mathf.Abs(lightPlayerPos.x);
-                lightPlayer.transform.localPosition = lightPlayerPos;
+                if (flipXFrozen)
+                {
+                    // Handle flipX freeze logic
+                }
+                else
+                {
+                    sr.flipX = true;
+                    // Change lightPlayer's x position to negative
+                    Vector3 lightPlayerPos = lightPlayer.transform.localPosition;
+                    lightPlayerPos.x = Mathf.Abs(lightPlayerPos.x);
+                    lightPlayer.transform.localPosition = lightPlayerPos;
 
-                Vector3 holdPointPos = holdPoint.transform.localPosition;
-                holdPointPos.x = Mathf.Abs(holdPointPos.x);
-                holdPoint.transform.localPosition = holdPointPos;
+                    Vector3 holdPointPos = holdPoint.transform.localPosition;
+                    holdPointPos.x = Mathf.Abs(holdPointPos.x);
+                    holdPoint.transform.localPosition = holdPointPos;
+                }
             }
             else if (x > 0)
             {
-                sr.flipX = false;
-                // Change lightPlayer's x position to positive
-                Vector3 lightPlayerPos = lightPlayer.transform.localPosition;
-                lightPlayerPos.x = Mathf.Abs(lightPlayerPos.x) * -1;
-                lightPlayer.transform.localPosition = lightPlayerPos;
+                if (flipXFrozen)
+                {
+                    // Handle flipX freeze logic
+                }
+                else
+                {
+                    sr.flipX = false;
+                    // Change lightPlayer's x position to positive
+                    Vector3 lightPlayerPos = lightPlayer.transform.localPosition;
+                    lightPlayerPos.x = Mathf.Abs(lightPlayerPos.x) * -1;
+                    lightPlayer.transform.localPosition = lightPlayerPos;
 
-                Vector3 holdPointPos = holdPoint.transform.localPosition;
-                holdPointPos.x = Mathf.Abs(holdPointPos.x) * -1;
-                holdPoint.transform.localPosition = holdPointPos;
+                    Vector3 holdPointPos = holdPoint.transform.localPosition;
+                    holdPointPos.x = Mathf.Abs(holdPointPos.x) * -1;
+                    holdPoint.transform.localPosition = holdPointPos;
+                }
             }
         }
         else
@@ -111,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (jumpEnabled && Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -121,5 +139,30 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+
+    public void DisableJump()
+    {
+        jumpEnabled = false;
+    }
+
+    public void EnableJump()
+    {
+        jumpEnabled = true;
+    }
+
+    public void FreezeFlipX(bool freeze)
+    {
+        flipXFrozen = freeze;
+    }
+
+    public void DisableSprinting()
+    {
+        sprintEnabled = false;
+    }
+
+    public void EnableSprinting()
+    {
+        sprintEnabled = true;
     }
 }

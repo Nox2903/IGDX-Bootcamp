@@ -19,6 +19,7 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 playerDest;
     public float normalSpeed = 3.5f;
     public float chasingSpeed = 5.25f;
+    public PickableItem pickableItem;
 
     private void Start()
     {
@@ -73,6 +74,10 @@ public class EnemyPatrol : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (pickableItem.heldItem != null)
+            {
+                pickableItem.DropItem();
+            }
             var playerCheckpoint = collision.gameObject.GetComponent<Player_Checkpoint>();
             if (playerCheckpoint != null)
             {

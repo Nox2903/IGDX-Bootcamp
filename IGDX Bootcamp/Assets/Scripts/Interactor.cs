@@ -11,10 +11,17 @@ interface IInteractable
 public class Interactor : MonoBehaviour
 {
     private IInteractable interactableObject;
+    private Transform playerTransform;
+    public bool isInteracting = false;
+
+    void Start()
+    {
+        playerTransform = this.transform;
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && interactableObject != null)
+        if (!isInteracting && Input.GetKeyDown(KeyCode.E) && interactableObject != null)
         {
             interactableObject.Interact();
         }
@@ -39,5 +46,10 @@ public class Interactor : MonoBehaviour
                 interactableObject = null;
             }
         }
+    }
+
+    public Transform GetPlayerTransform()
+    {
+        return playerTransform;
     }
 }

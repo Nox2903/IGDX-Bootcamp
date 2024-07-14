@@ -17,10 +17,12 @@ public class PickableItem : MonoBehaviour, IInteractable
     private bool isPickedUp = false;  // Track if the item is currently picked up
     private Transform originalParent;
     public SpriteRenderer playerSpriteRenderer;  // Reference to the player's SpriteRenderer component
+    public Interactor interactor;
 
     void Start()
     {
         originalParent = transform.parent;
+        interactor = GameObject.FindGameObjectWithTag("Player").GetComponent<Interactor>();
     }
 
     public void Interact()
@@ -49,6 +51,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         //Debug.Log("Picking up item: " + gameObject.name);
         heldItem = gameObject;
         isPickedUp = true;
+        interactor.isInteracting = true;
         popUp2.SetActive(true);
         ChangePopUpXPosition(0.15f); // Change the x coordinate to 0.15
         heldItem.GetComponent<Rigidbody>().isKinematic = true;  // Disable physics while holding
@@ -58,10 +61,11 @@ public class PickableItem : MonoBehaviour, IInteractable
         SetPlayerStats();
     }
 
-    void DropItem()
+    public void DropItem()
     {
         Debug.Log("Dropping item: " + heldItem.name);
         isPickedUp = false;
+        interactor.isInteracting = false;
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         heldItem.GetComponent<Rigidbody>().isKinematic = false;  // Re-enable physics
@@ -71,7 +75,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         ResetPlayerStats();
     }
 
-    void ThrowItem()
+    public void ThrowItem()
     {
         Debug.Log("Throwing item: " + heldItem.name);
         Rigidbody itemRb = heldItem.GetComponent<Rigidbody>();
@@ -87,6 +91,7 @@ public class PickableItem : MonoBehaviour, IInteractable
 
         heldItem = null;
         isPickedUp = false;
+        interactor.isInteracting = false;
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         ResetPlayerStats();
