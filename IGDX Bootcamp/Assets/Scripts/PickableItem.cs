@@ -18,11 +18,13 @@ public class PickableItem : MonoBehaviour, IInteractable
     private Transform originalParent;
     public SpriteRenderer playerSpriteRenderer;  // Reference to the player's SpriteRenderer component
     public Interactor interactor;
+    [SerializeField] private PlayerController playerController;
 
     void Start()
     {
         originalParent = transform.parent;
         interactor = GameObject.FindGameObjectWithTag("Player").GetComponent<Interactor>();
+        playerController = holdPoint.GetComponentInParent<PlayerController>();
     }
 
     public void Interact()
@@ -52,6 +54,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         heldItem = gameObject;
         isPickedUp = true;
         interactor.isInteracting = true;
+        playerController.DisableJump();
         popUp2.SetActive(true);
         ChangePopUpXPosition(0.15f); // Change the x coordinate to 0.15
         heldItem.GetComponent<Rigidbody>().isKinematic = true;  // Disable physics while holding
@@ -66,6 +69,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         Debug.Log("Dropping item: " + heldItem.name);
         isPickedUp = false;
         interactor.isInteracting = false;
+        playerController.EnableJump();
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         heldItem.GetComponent<Rigidbody>().isKinematic = false;  // Re-enable physics
@@ -92,6 +96,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         heldItem = null;
         isPickedUp = false;
         interactor.isInteracting = false;
+        playerController.EnableJump();
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         ResetPlayerStats();
@@ -105,7 +110,6 @@ public class PickableItem : MonoBehaviour, IInteractable
     
     public void SetPlayerStats()
     {
-        var playerController = holdPoint.GetComponentInParent<PlayerController>();
         if (playerController != null)
         {
             playerController.speed = heldSpeed;
@@ -116,7 +120,6 @@ public class PickableItem : MonoBehaviour, IInteractable
 
     public void ResetPlayerStats()
     {
-        var playerController = holdPoint.GetComponentInParent<PlayerController>();
         if (playerController != null)
         {
             playerController.speed = playerController.resetSpeed;
