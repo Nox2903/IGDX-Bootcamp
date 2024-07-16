@@ -5,6 +5,7 @@ using UnityEngine;
 public class PushPullObject : MonoBehaviour, IInteractable
 {
     public GameObject popUp;
+    public BoxCollider boxCol;
     [SerializeField] private bool isInteracting = false;
     private Transform playerTransform;
     private Rigidbody rb;
@@ -30,29 +31,23 @@ public class PushPullObject : MonoBehaviour, IInteractable
             Debug.LogError("PlayerController script not found on player object.");
         }
     }
-
     public void Interact()
     {
-        isInteracting = !isInteracting;
-        Debug.Log(isInteracting);
-        if (isInteracting)
-        {
-            rb.isKinematic = false;
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            playerController.DisableJump(); // Call method to disable jumping
-            playerController.FreezeFlipX(true); // Freeze flipX value
-            playerController.DisableSprinting();
-            StartCoroutine(CreateFixedJointDelayed());
-        }
-        else
-        {
-            DestroyFixedJoint();
-            rb.isKinematic = true;
-            playerController.EnableJump(); // Call method to enable jumping
-            playerController.FreezeFlipX(false); // Unfreeze flipX value
-            playerController.EnableSprinting();
-        }
-        
+        rb.isKinematic = false;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerController.DisableJump(); // Call method to disable jumping
+        playerController.FreezeFlipX(true); // Freeze flipX value
+        playerController.DisableSprinting();
+        StartCoroutine(CreateFixedJointDelayed());
+    }
+
+    public void UnInteract()
+    {
+        DestroyFixedJoint();
+        rb.isKinematic = true;
+        playerController.EnableJump(); // Call method to enable jumping
+        playerController.FreezeFlipX(false); // Unfreeze flipX value
+        playerController.EnableSprinting();
     }
 
     void OnTriggerExit(Collider other)

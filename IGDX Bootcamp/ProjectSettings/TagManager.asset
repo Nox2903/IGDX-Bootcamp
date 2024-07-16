@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Pickable
   - Pushable
+  - PlayerLedge
+  - PlayerCan'tLedge
   layers:
   - Default
   - TransparentFX
@@ -15,12 +17,12 @@ TagManager:
   - UI
   - Terrain
   - Item
-  - 
+  - Obstacle
   - 
   - PostProc
   - Camera
   - IgnoreDecals
-  - 
+  - VaultLayer
   - 
   - 
   - 

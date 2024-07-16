@@ -6,12 +6,14 @@ interface IInteractable
 {
     GameObject PopUp { get; }
     void Interact();
+    void UnInteract();
 }
 
 public class Interactor : MonoBehaviour
 {
     private IInteractable interactableObject;
     private Transform playerTransform;
+    public Animator animator;
     public bool isInteracting = false;
 
     void Start()
@@ -21,9 +23,22 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
-        if (!isInteracting && Input.GetKeyDown(KeyCode.E) && interactableObject != null)
+        if (Input.GetKeyDown(KeyCode.E) && interactableObject != null && animator.GetBool("IsInAir") == false)
         {
-            interactableObject.Interact();
+            interactableObject.UnInteract();
+            if (!isInteracting)
+            {
+                Debug.Log("pressed interact button.");
+                isInteracting = true;
+                interactableObject.Interact();
+            }
+            else
+            {
+                Debug.Log("pressed interact button.");
+                isInteracting = false;
+                interactableObject.UnInteract();
+
+            }
         }
     }
 

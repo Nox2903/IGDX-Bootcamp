@@ -14,17 +14,17 @@ public class PickableItem : MonoBehaviour, IInteractable
     public float throwForce = 10f;  // The force applied when throwing the item
 
     public GameObject heldItem;
-    private bool isPickedUp = false;  // Track if the item is currently picked up
+    private bool isInteracting = false;  // Track if the item is currently picked up
     private Transform originalParent;
     public SpriteRenderer playerSpriteRenderer;  // Reference to the player's SpriteRenderer component
-    public Interactor interactor;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private Interactor interactor;
 
     void Start()
     {
         originalParent = transform.parent;
-        interactor = GameObject.FindGameObjectWithTag("Player").GetComponent<Interactor>();
         playerController = holdPoint.GetComponentInParent<PlayerController>();
+        interactor = holdPoint.GetComponentInParent<Interactor>();
     }
 
     public void Interact()
@@ -33,7 +33,11 @@ public class PickableItem : MonoBehaviour, IInteractable
         {
             PickupItem();
         }
-        else
+    }
+
+    public void UnInteract()
+    {
+        if (heldItem != null)
         {
             DropItem();
         }
@@ -50,10 +54,9 @@ public class PickableItem : MonoBehaviour, IInteractable
 
     void PickupItem()
     {
-        //Debug.Log("Picking up item: " + gameObject.name);
+        Debug.Log("Picking up item: " + gameObject.name);
         heldItem = gameObject;
-        isPickedUp = true;
-        interactor.isInteracting = true;
+        isInteracting = true;
         playerController.DisableJump();
         popUp2.SetActive(true);
         ChangePopUpXPosition(0.15f); // Change the x coordinate to 0.15
@@ -67,8 +70,7 @@ public class PickableItem : MonoBehaviour, IInteractable
     public void DropItem()
     {
         Debug.Log("Dropping item: " + heldItem.name);
-        isPickedUp = false;
-        interactor.isInteracting = false;
+        isInteracting = false;
         playerController.EnableJump();
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
@@ -94,9 +96,9 @@ public class PickableItem : MonoBehaviour, IInteractable
         itemRb.AddForce(new Vector3((throwDirection * 0.5f), 1f, 0) * throwForce, ForceMode.VelocityChange);
 
         heldItem = null;
-        isPickedUp = false;
-        interactor.isInteracting = false;
+        isInteracting = false;
         playerController.EnableJump();
+        interactor.isInteracting = false;
         popUp2.SetActive(false);
         ChangePopUpXPosition(0.0f); // Change the x coordinate back to 0
         ResetPlayerStats();
