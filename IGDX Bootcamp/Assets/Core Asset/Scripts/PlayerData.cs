@@ -25,6 +25,8 @@ public class PlayerData : MonoBehaviour
     public float jumpForce;
     public float resetJumpForce;
     public float groundDist;
+    
+    [Header("Object Data")]
     public LayerMask terrainLayer;
     public Rigidbody rb;
     public SpriteRenderer sr;
