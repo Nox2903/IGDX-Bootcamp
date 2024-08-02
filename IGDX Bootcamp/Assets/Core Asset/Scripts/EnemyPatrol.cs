@@ -6,6 +6,9 @@ using checkPointsManager.runtime;
 
 public class EnemyPatrol : MonoBehaviour
 {
+
+    [Header("Patrol Mode")]
+    public PatrolMode patrolMode;
     public enum PatrolMode
     {
         FOV,
@@ -28,11 +31,6 @@ public class EnemyPatrol : MonoBehaviour
     public float chasingSpeed = 5.25f;
     public PickableItem pickableItem;
 
-    [Header("Patrol Mode")]
-    public PatrolMode patrolMode;
-    public Light spotlight;
-    public float spotlightRayDistance = 10f;
-
     [Header("FOV Settings")]
     public float viewRadius1 = 10f;
     [Range(0, 360)] public float viewAngle1 = 120f;
@@ -40,11 +38,11 @@ public class EnemyPatrol : MonoBehaviour
     [Range(0, 360)] public float viewAngle2 = 60f;
 
     [Header("Spotlight Settings")]
-    [SerializeField] private int raysToCast = 100; // Editable in Inspector
-
-    [Header("Rotation Settings")]
-    public float rotationInterval = 10f; // Time interval for rotation
-    public float[] rotationAngles; // Array of angles to rotate by
+    [SerializeField] private int raysToCast = 100;
+    public Light spotlight;
+    public float spotlightRayDistance = 10f;
+    public float rotationInterval = 10f;
+    public float[] rotationAngles;
     private int currentAngleIndex = 0;
 
     private Vector3 facingDirection = Vector3.forward;
@@ -52,10 +50,10 @@ public class EnemyPatrol : MonoBehaviour
     private void Start()
     {
         ai = GetComponent<NavMeshAgent>();
-        posInt = 0; // Start at the first patrol point
+        posInt = 0;
         ai.speed = normalSpeed;
         StartCoroutine(GoPosPoint());
-        StartCoroutine(RotateEnemy()); // Start the rotation coroutine
+        StartCoroutine(RotateEnemy());
     }
 
     private void Update()
@@ -63,7 +61,6 @@ public class EnemyPatrol : MonoBehaviour
         dest = posPoints[posInt].position;
         playerDest = playerPoint.position;
 
-        // Update facing direction based on the movement direction
         if (ai.velocity.magnitude > 0.1f)
         {
             facingDirection = ai.velocity.normalized;
@@ -96,7 +93,7 @@ public class EnemyPatrol : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(posTime);
-            posInt = (posInt + 1) % posPoints.Length; // Move to the next point and loop back to the start
+            posInt = (posInt + 1) % posPoints.Length;
         }
     }
 
@@ -106,13 +103,11 @@ public class EnemyPatrol : MonoBehaviour
         {
             if (rotationAngles.Length > 0)
             {
-                // Calculate the rotation step
                 float angle = rotationAngles[currentAngleIndex];
                 Quaternion targetRotation = Quaternion.Euler(0, angle, 0);
 
-                // Rotate to the target angle
                 float elapsedTime = 0f;
-                float rotationDuration = 1f; // Duration to rotate (seconds)
+                float rotationDuration = 1f;
 
                 while (elapsedTime < rotationDuration)
                 {
@@ -120,13 +115,11 @@ public class EnemyPatrol : MonoBehaviour
                     elapsedTime += Time.deltaTime;
                     yield return null;
                 }
-                transform.rotation = targetRotation; // Ensure the final rotation is set
+                transform.rotation = targetRotation;
 
-                // Update to the next angle
                 currentAngleIndex = (currentAngleIndex + 1) % rotationAngles.Length;
             }
 
-            // Wait for the specified interval before rotating again
             yield return new WaitForSeconds(rotationInterval);
         }
     }
