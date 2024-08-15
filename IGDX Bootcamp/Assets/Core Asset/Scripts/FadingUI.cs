@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using checkPointsManager.runtime;
 
 public class FadingUI : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class FadingUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     private Tween fadeTween;
     public TMP_Text textDesc;
-    
+    public Player_Checkpoint player_Checkpoint;
+    public GameObject player;
+
     public void Awake()
     {
         instance = this;
@@ -73,5 +76,21 @@ public class FadingUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StartCoroutine(FadingOut());
         Debug.Log("FadeOut");
+    }
+
+    public IEnumerator Kill()
+    {
+        StartCoroutine(TestFadeIn());
+        yield return new WaitForSeconds(1f);
+        player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);
+        StartCoroutine(TestFadeOut());
+    }
+
+    public IEnumerator Teleport(Transform nextRoom)
+    {
+        StartCoroutine(TestFadeIn());
+        yield return new WaitForSeconds(1f);
+        player.transform.position = nextRoom.transform.position;
+        StartCoroutine(TestFadeOut());
     }
 }

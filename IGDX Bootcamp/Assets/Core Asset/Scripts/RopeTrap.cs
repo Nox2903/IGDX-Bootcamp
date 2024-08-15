@@ -23,16 +23,13 @@ public class RopeTrap : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Kills());
+            Kills();
         }
     }
 
-    public IEnumerator Kills()
+    public void Kills()
     {
         FadingUI.instance.textDesc.text = "you got wrecked";
-        StartCoroutine(FadingUI.instance.TestFadeIn());
-        yield return new WaitForSeconds(1f);
-        player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);
-        StartCoroutine(FadingUI.instance.TestFadeOut());
+        StartCoroutine(FadingUI.instance.Kill());
     }
 }
