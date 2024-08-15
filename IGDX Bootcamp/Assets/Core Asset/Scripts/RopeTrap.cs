@@ -29,6 +29,7 @@ public class RopeTrap : MonoBehaviour
 
     public IEnumerator Kills()
     {
+        FadingUI.instance.textDesc.text = "you got wrecked";
         StartCoroutine(FadingUI.instance.TestFadeIn());
         yield return new WaitForSeconds(1f);
         player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);

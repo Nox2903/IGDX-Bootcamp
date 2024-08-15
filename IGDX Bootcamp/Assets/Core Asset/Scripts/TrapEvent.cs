@@ -20,6 +20,7 @@ public class TrapEvent : MonoBehaviour
     }
     public IEnumerator KillEm()
     {
+        FadingUI.instance.textDesc.text = "you stepped on a trap";
         StartCoroutine(FadingUI.instance.TestFadeIn());
         yield return new WaitForSeconds(1f);
         player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);

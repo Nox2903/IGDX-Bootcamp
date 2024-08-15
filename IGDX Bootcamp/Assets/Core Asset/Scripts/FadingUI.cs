@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class FadingUI : MonoBehaviour
 {
     public static FadingUI instance;
     [SerializeField] private CanvasGroup canvasGroup;
     private Tween fadeTween;
+    public TMP_Text textDesc;
     
     public void Awake()
     {
