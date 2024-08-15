@@ -23,7 +23,15 @@ public class RopeTrap : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);
+            StartCoroutine(Kills());
         }
+    }
+
+    public IEnumerator Kills()
+    {
+        StartCoroutine(FadingUI.instance.TestFadeIn());
+        yield return new WaitForSeconds(1f);
+        player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);
+        StartCoroutine(FadingUI.instance.TestFadeOut());
     }
 }

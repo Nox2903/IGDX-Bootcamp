@@ -24,7 +24,7 @@ public class RopeTrigger : MonoBehaviour, IInteractable
         }
         else if (isRight)
         {
-            TeleportPlayer();
+            StartCoroutine(TeleportPlayer());
             Debug.Log("teleported");
         }
     }
@@ -45,8 +45,11 @@ public class RopeTrigger : MonoBehaviour, IInteractable
 
     }
 
-    public void TeleportPlayer()
+    public IEnumerator TeleportPlayer()
     {
+        StartCoroutine(FadingUI.instance.TestFadeIn());
+        yield return new WaitForSeconds(1f);
         player.transform.position = nextRoom.transform.position;
+        StartCoroutine(FadingUI.instance.TestFadeOut());
     }
 }
