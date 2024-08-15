@@ -39,10 +39,13 @@ public class PushPullObject : MonoBehaviour, IInteractable
         playerData.FreezeFlipX(true);
         playerData.DisableSprinting();
         StartCoroutine(CreateFixedJointDelayed());
+        Interactor.instance.isInteracting = true;
     }
 
     public void UnInteract()
     {
+        Debug.Log("lepas");
+        Interactor.instance.isInteracting = false;
         DestroyFixedJoint();
         rb.isKinematic = true;
         playerData.EnableJump();

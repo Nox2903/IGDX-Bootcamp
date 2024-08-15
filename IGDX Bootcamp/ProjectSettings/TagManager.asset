@@ -8,6 +8,7 @@ TagManager:
   - Pushable
   - PlayerLedge
   - PlayerCan'tLedge
+  - Rope
   layers:
   - Default
   - TransparentFX

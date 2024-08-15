@@ -63,6 +63,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         heldItem.transform.position = holdPoint.position;
         heldItem.transform.parent = holdPoint;
         SetPlayerStats();
+        interactor.isInteracting = true;
     }
 
     public void DropItem()
@@ -76,6 +77,7 @@ public class PickableItem : MonoBehaviour, IInteractable
         heldItem.transform.parent = originalParent;
         heldItem = null;
         ResetPlayerStats();
+        interactor.isInteracting = false;
     }
 
     public void ThrowItem()

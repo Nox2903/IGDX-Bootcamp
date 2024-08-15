@@ -11,10 +11,16 @@ interface IInteractable
 
 public class Interactor : MonoBehaviour
 {
+    public static Interactor instance;
     private IInteractable interactableObject;
     private Transform playerTransform;
     public Animator animator;
     public bool isInteracting = false;
+
+    public void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -25,18 +31,17 @@ public class Interactor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && interactableObject != null && animator.GetBool("IsInAir") == false)
         {
-            interactableObject.UnInteract();
             if (!isInteracting)
             {
                 Debug.Log("pressed interact button.");
-                isInteracting = true;
                 interactableObject.Interact();
+                Debug.Log("1");
             }
             else
             {
                 Debug.Log("pressed interact button.");
-                isInteracting = false;
                 interactableObject.UnInteract();
+                Debug.Log("2");
 
             }
         }
