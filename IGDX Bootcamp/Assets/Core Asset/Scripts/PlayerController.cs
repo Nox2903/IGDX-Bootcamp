@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
     private float currentSpeed;
+    
+    public void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

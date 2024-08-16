@@ -57,7 +57,7 @@ public class FadingUI : MonoBehaviour
     private IEnumerator FadingIn()
     {
         yield return new WaitForSeconds(0f);
-        FadeIn(0.5f);
+        FadeIn(1f);
     }
     private IEnumerator FadingOut()
     {
@@ -81,16 +81,22 @@ public class FadingUI : MonoBehaviour
     public IEnumerator Kill()
     {
         StartCoroutine(TestFadeIn());
+        PlayerController.instance.enabled = false;
         yield return new WaitForSeconds(1f);
         player_Checkpoint.teleportToCheckpoint(player_Checkpoint.currentCheckpoint);
         StartCoroutine(TestFadeOut());
+        yield return new WaitForSeconds(2f);
+        PlayerController.instance.enabled = true;
     }
 
     public IEnumerator Teleport(Transform nextRoom)
     {
         StartCoroutine(TestFadeIn());
         yield return new WaitForSeconds(1f);
+        PlayerController.instance.enabled = false;
         player.transform.position = nextRoom.transform.position;
         StartCoroutine(TestFadeOut());
+        yield return new WaitForSeconds(2.5f);
+        PlayerController.instance.enabled = true;
     }
 }

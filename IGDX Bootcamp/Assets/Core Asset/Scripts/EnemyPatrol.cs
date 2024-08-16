@@ -157,11 +157,13 @@ public class EnemyPatrol : MonoBehaviour
             pickableItem.DropItem();
         }
 
-        var playerCheckpoint = player.GetComponent<Player_Checkpoint>();
-        if (playerCheckpoint != null)
-        {
-            playerCheckpoint.teleportToCheckpoint(playerCheckpoint.currentCheckpoint);
-        }
+        // var playerCheckpoint = player.GetComponent<Player_Checkpoint>();
+        // if (playerCheckpoint != null)
+        // {
+        //     playerCheckpoint.teleportToCheckpoint(playerCheckpoint.currentCheckpoint);
+        // }
+        FadingUI.instance.textDesc.text = "you got caught";
+        StartCoroutine(FadingUI.instance.Kill());
     }
 
     public void ChasePlayer()
