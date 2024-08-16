@@ -106,7 +106,7 @@ public class QuestManager : MonoBehaviour
         {
             string tempQuestStatus = "X";
             if (currentActiveQuest[i].isCompleted)
-                tempQuestStatus = "";
+                tempQuestStatus = "V";
 
             tempQuestString += currentActiveQuest[i].title + "(" + tempQuestStatus + ")";
 
