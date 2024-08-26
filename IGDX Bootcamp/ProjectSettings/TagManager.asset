@@ -9,6 +9,7 @@ TagManager:
   - PlayerLedge
   - PlayerCan'tLedge
   - Rope
+  - Enemy
   layers:
   - Default
   - TransparentFX

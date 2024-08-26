@@ -5,7 +5,6 @@ using checkPointsManager.runtime;
 
 public class TrapEvent : MonoBehaviour
 {
-    public Player_Checkpoint player_Checkpoint;
     [SerializeField] Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +15,7 @@ public class TrapEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void KillEm()
     {
@@ -27,5 +26,14 @@ public class TrapEvent : MonoBehaviour
     public void Ready()
     {
         anim.SetTrigger("Ready");
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            FadingUI.instance.textDesc.text = "You fall into the void";
+            StartCoroutine(FadingUI.instance.Kill());
+        }
     }
 }
