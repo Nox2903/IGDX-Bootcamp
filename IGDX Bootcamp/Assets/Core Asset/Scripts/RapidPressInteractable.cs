@@ -11,8 +11,8 @@ public class RapidPressInteractable : MonoBehaviour, IInteractable
     public Slider timerSlider; // Reference to the UI Slider for the timer
     public Slider pressCounterSlider; // Reference to the UI Slider for the press counter
 
-    private bool isInteracting = false;
-    private bool isOpen = false;
+    [SerializeField] private bool isInteracting = false;
+    [SerializeField] private bool isOpen = false;
     private int rapidPressCounter = 0;
     private float rapidPressWindow = 3f; // Time window for rapid presses
     private float timer = 0f;
@@ -62,10 +62,6 @@ public class RapidPressInteractable : MonoBehaviour, IInteractable
                 {
                     HandleNextObject();
                 }
-            }
-            else if (Input.anyKeyDown) // Cancel interaction if any key other than R is pressed
-            {
-                CancelRapidPress();
             }
 
             if (timer >= rapidPressWindow)
@@ -199,5 +195,6 @@ public class RapidPressInteractable : MonoBehaviour, IInteractable
     void OnTriggerExit()
     {
         popUp2.SetActive(false);
+        CancelRapidPress();
     }
 }
