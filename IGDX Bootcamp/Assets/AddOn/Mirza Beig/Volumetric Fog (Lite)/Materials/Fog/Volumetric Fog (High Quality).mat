@@ -180,7 +180,7 @@ Material:
     - _Main_Light_Anisotropic_Blend: 0.8
     - _Main_Light_Anisotropy: -0.27
     - _Main_Light_Anisotropy_Blend: 0.36
-    - _Main_Light_Intensity: 0.5
+    - _Main_Light_Intensity: 1
     - _Main_Light_Self_Shadow_Absorption_Coefficient: 0.5
     - _Main_Light_Self_Shadow_Raymarch_Distance: 5
     - _Main_Light_Self_Shadow_Raymarch_Steps: 8
@@ -194,21 +194,21 @@ Material:
     - _PROBE_VOLUMES: 2
     - _PROCEDURAL_DENSITY: 0
     - _Parallax: 0.005
-    - _Power: 2.59
+    - _Power: 1.8
     - _QueueOffset: 0
     - _RAYMARCH_CLAMP_TO_SURFACE: 0
     - _RaymarchSteps: 2.29
     - _Raymarch_Additional_Light_Self_Shadow_Steps: 8
     - _Raymarch_Depth_Fade: 0
     - _Raymarch_Depth_Fade_Power: 2
-    - _Raymarch_Distance: 12.9
-    - _Raymarch_Distance_Bias: 0.25
+    - _Raymarch_Distance: 30
+    - _Raymarch_Distance_Bias: 0.28
     - _Raymarch_Height_Falloff: 0.456
     - _Raymarch_Height_Offset: 0
     - _Raymarch_Max_Depth: 0
     - _Raymarch_Noise: 0.06
     - _Raymarch_Self_Shadow_Steps: 4
-    - _Raymarch_Steps: 32
+    - _Raymarch_Steps: 128
     - _ReceiveShadows: 1
     - _Remap_Max: 0.75
     - _Remap_Min: 0
@@ -250,7 +250,7 @@ Material:
     - _Cloud_Noise_Voronoi_Animation: {r: 0, g: 0, b: 0.5, a: 0.5}
     - _Cloud_Noise_Voronoi_Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 0.36933854, b: 0, a: 1}
-    - _Colour: {r: 0.05490196, g: 0.09411765, b: 0.20784314, a: 1}
+    - _Colour: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 45}
     - _Raymarch_Vertical_Range: {r: 0, g: 0.1, b: 0, a: 0}

@@ -47,7 +47,6 @@ public class RopeTrigger : MonoBehaviour, IInteractable
 
     public void TeleportPlayer()
     {
-        
         FadingUI.instance.textDesc.text = "going to next room";
         StartCoroutine(FadingUI.instance.Teleport(nextRoom));
     }

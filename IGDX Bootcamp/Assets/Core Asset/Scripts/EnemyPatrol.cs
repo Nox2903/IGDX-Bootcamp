@@ -29,7 +29,8 @@ public class EnemyPatrol : MonoBehaviour
     private Vector3 playerDest;
     public float normalSpeed = 3.5f;
     public float chasingSpeed = 5.25f;
-    public PickableItem pickableItem;
+    [SerializeField] private PickableItem pickableItem;    
+    [SerializeField] private PushPullObject pushPullObject;
 
     [Header("FOV Settings")]
     public float viewRadius1 = 10f;
@@ -152,11 +153,14 @@ public class EnemyPatrol : MonoBehaviour
 
     private void HandlePlayerCollision(GameObject player)
     {
-        if (pickableItem.heldItem != null)
+        pickableItem = player.gameObject.GetComponentInChildren<PickableItem>();
+        if (pickableItem != null)
         {
-            pickableItem.DropItem();
+            if (pickableItem.heldItem != null)
+            {
+                pickableItem.DropItem();
+            }
         }
-
         // var playerCheckpoint = player.GetComponent<Player_Checkpoint>();
         // if (playerCheckpoint != null)
         // {

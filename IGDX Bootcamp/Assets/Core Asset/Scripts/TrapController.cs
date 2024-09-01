@@ -22,7 +22,7 @@ public class TrapController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (other.gameObject.tag != "Player" && other.gameObject.tag != "Enemy")
         {
             anim.SetTrigger("Closed");
             col.enabled = false;
@@ -36,9 +36,5 @@ public class TrapController : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag != "Player")
-        {
-            col.enabled = true;
-        }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6609129077797409582}
-  - component: {fileID: 823978757305576868}
+  - component: {fileID: 8160795893138687656}
   - component: {fileID: 8265504375252590004}
   m_Layer: 0
   m_Name: Trap
@@ -35,8 +35,8 @@ Transform:
   - {fileID: 2917493406835528562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &823978757305576868
-SphereCollider:
+--- !u!65 &8160795893138687656
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -54,8 +54,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.23513645
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.45445347, y: 0.20957355, z: 0.45607376}
+  m_Center: {x: -0.009057522, y: -0.08245728, z: -0.002064705}
 --- !u!114 &8265504375252590004
 MonoBehaviour:
   m_ObjectHideFlags: 0

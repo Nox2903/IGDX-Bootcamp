@@ -29,6 +29,7 @@ public class Maze : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             BreakPlane();
+            FadingUI.instance.textDesc.text = "You fall into the void";
             StartCoroutine(FadingUI.instance.Kill());
         }
     }
