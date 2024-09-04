@@ -15,7 +15,11 @@ public class EnemyPatrol : MonoBehaviour
         Collider,
         Spotlight
     }
-
+public enum NPCType
+{
+    Chasing, Idle
+}
+public NPCType nPCType;
     private NavMeshAgent ai;
     [SerializeField] private float posTime;
     [SerializeField] private Transform[] posPoints;
@@ -81,10 +85,12 @@ public class EnemyPatrol : MonoBehaviour
 
         if (patrolArea.isPlayerInArea && isChasing)
         {
+            if(nPCType == NPCType.Chasing)
             ai.SetDestination(playerDest);
         }
         else
         {
+            if(nPCType == NPCType.Chasing)
             ai.SetDestination(dest);
         }
     }
@@ -172,6 +178,7 @@ public class EnemyPatrol : MonoBehaviour
 
     public void ChasePlayer()
     {
+        if(nPCType == NPCType.Chasing)
         ai.SetDestination(playerDest);
     }
 
